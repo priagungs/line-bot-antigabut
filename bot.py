@@ -47,7 +47,7 @@ def handle_text_message(event):
         line_bot_api.reply_message(event.reply_token, text_message)
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(event.source.group_id)
+            TextSendMessage(text = 'group id = ' + event.source.group_id)
         )
 
 
