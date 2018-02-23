@@ -77,8 +77,8 @@ def handle_text_message(event):
 
             member_name = text.split('!profile ')
             for mem_id in list_member.member_ids:
-                if(member_name.lower() in line_bot_api.get_profile(mem_id).display_name):
-                    user_profile = line_bot_api.get_profile(mem_id)
+                if(member_name.lower() in line_bot_api.get_group_member_profile(mem_id).display_name):
+                    user_profile = line_bot_api.get_group_member_profile(mem_id)
                     found = False
                     break
             if not found:
