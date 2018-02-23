@@ -53,11 +53,17 @@ def handle_text_message(event):
             if(isinstance(event.source, SourceRoom)):
                 list_member = line_bot_api.get_room_member_ids(event.source.room_id)
             elif(isinstance(event.source, SourceGroup)):
+                line_bot_api.reply_message(
+                    event.reply_token,
+                    TextSendMessage(
+                        text = 'masuk bray1'
+                    )
+                )
                 list_member = line_bot_api.get_group_member_ids(event.source.group_id)
                 line_bot_api.reply_message(
                     event.reply_token,
                     TextSendMessage(
-                        text = 'masuk bray'
+                        text = 'masuk bray2'
                     )
                 )
             else:
