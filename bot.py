@@ -11,6 +11,8 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 
+import time
+
 app = Flask(__name__)
 
 line_bot_api = LineBotApi('WRwK6zLY9ZJzx9ak/ymI8ez/n+rUgzJeUC+rkWGC9BVvgxaUqKtIpMYmQtYeT+9gqDoVIxeyX8x/XLYV4N194aHJyON2PXPvTFFKF8InxzgrwsnakZm/PPNy14YKKNMYdcl77pbWN/Th86ryTOh9ZQdB04t89/1O/w1cDnyilFU=') #Your Channel Access Token
@@ -36,11 +38,16 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     text = event.message.text #message from user
+    if(text == 'profile'):
+        user_profile = get_profile(event.source.user_id)
+        text_message = TextSendMessage(text =
+            'Nama : ' + user_profile.display_name +
+            '\nStatus : ' + user_profile.status_message +
+            '\nPicture : ' + user_profile.picture_url)
+        line_bot_api.reply_message(event.reply_token, text_message)
+    else:
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=text)) #reply the same message from user
 
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=text)) #reply the same message from user
-    
 
 import os
 if __name__ == "__main__":
