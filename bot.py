@@ -45,7 +45,7 @@ def handle_text_message(event):
             '\nStatus : ' + user_profile.status_message +
             '\nPicture : ' + user_profile.picture_url)
         line_bot_api.reply_message(event.reply_token, text_message)
-    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=text)) #reply the same message from user
+    line_bot_api.reply_message(event.reply_token, TextSendMessage(text='test\ntest')) #reply the same message from user
 
 
 import os
