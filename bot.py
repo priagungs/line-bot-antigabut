@@ -45,6 +45,11 @@ def handle_text_message(event):
             '\nStatus : ' + user_profile.status_message +
             '\nPicture : ' + user_profile.picture_url)
         line_bot_api.reply_message(event.reply_token, text_message)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(vent.source.group_id)
+        )
+
 
 import os
 if __name__ == "__main__":
