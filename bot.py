@@ -43,6 +43,12 @@ def handle_text_message(event):
         if(len(text.split()) == 1):
             user_profile = line_bot_api.get_profile(event.source.user_id)
         else:
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(
+                    text = 'masuk bray'
+                )
+            )
             if(isinstance(event.source, SourceRoom)):
                 list_member = line_bot_api.get_room_member_ids(event.source.room_id)
             elif(isinstance(event.source, SourceGroup)):
