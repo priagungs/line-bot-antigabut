@@ -39,13 +39,24 @@ def callback():
 def handle_text_message(event):
     text = event.message.text #message from user
     if(text == 'profile'):
-        user_profile = get_profile(event.source.user_id)
-        text_message = [
-            TextSendMessage(text = 'Nama : ' + user_profile.display_name),
-            TextSendMessage(text = 'Status : ' + user_profile.status_message),
-            TextSendMessage(text = 'Picture : ' + user_profile.picture_url)
-        ]
-        line_bot_api.reply_message(event.reply_token, text_message)
+        # user_profile = get_profile(event.source.user_id)
+        # text_message = [
+        #     TextSendMessage(text = 'Nama : ' + user_profile.display_name),
+        #     TextSendMessage(text = 'Status : ' + user_profile.status_message),
+        #     TextSendMessage(text = 'Picture : ' + user_profile.picture_url)
+        # ]
+        # line_bot_api.reply_message(event.reply_token, text_message)
+        profile = line_bot_api.get_profile(event.source.user_id)
+        line_bot_api.reply_message(
+            event.reply_token, [
+                TextSendMessage(
+                    text='Display name: ' + profile.display_name
+                ),
+                TextSendMessage(
+                    text='Status message: ' + profile.status_message
+                )
+            ]
+        )
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=text)) #reply the same message from user
 
