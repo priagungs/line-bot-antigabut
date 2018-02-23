@@ -54,11 +54,17 @@ def handle_text_message(event):
                 list_member = line_bot_api.get_room_member_ids(event.source.room_id)
             elif(isinstance(event.source, SourceGroup)):
                 list_member = line_bot_api.get_group_member_ids(event.source.group_id)
+                line_bot_api.reply_message(
+                    event.reply_token,
+                    TextSendMessage(
+                        text = str(list_member)
+                    )
+                )
             else:
                 line_bot_api.reply_message(
                     event.reply_token,
                     TextSendMessage(
-                        text = 'me neither inside a group nor room chat :('
+                        text = 'Not in a group or room chat!'
                     )
                 )
                 return
