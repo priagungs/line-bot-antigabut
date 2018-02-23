@@ -39,14 +39,12 @@ def callback():
 def handle_text_message(event):
     text = event.message.text #message from user
     if(text == 'profile'):
-        user_profile = line_bot_api.t_profile(event.source.user_id)
+        user_profile = line_bot_api.get_profile(event.source.user_id)
         text_message = TextSendMessage(text =
             'Nama : ' + user_profile.display_name +
             '\nStatus : ' + user_profile.status_message +
             '\nPicture : ' + user_profile.picture_url)
         line_bot_api.reply_message(event.reply_token, text_message)
-    line_bot_api.reply_message(event.reply_token, TextSendMessage(text='test\ntest')) #reply the same message from user
-
 
 import os
 if __name__ == "__main__":
