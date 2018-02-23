@@ -56,13 +56,13 @@ def handle_text_message(event):
                 )
                 found = False
 
-
-            member_name = text.split('!profile ')
-            for mem_id in list_member.member_ids:
-                if(member_name.lower() in line_bot_api.get_profile(mem_id).display_name):
-                    user_profile = line_bot_api.get_profile(mem_id)
-                    found = False
-                    break
+            if found:
+                member_name = text.split('!profile ')
+                for mem_id in list_member.member_ids:
+                    if(member_name.lower() in line_bot_api.get_profile(mem_id).display_name):
+                        user_profile = line_bot_api.get_profile(mem_id)
+                        found = False
+                        break
             if not found:
                 line_bot_api.reply_message(
                     event.reply_token,
