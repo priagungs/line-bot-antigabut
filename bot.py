@@ -38,6 +38,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     text = event.message.text #message from user
+    found = True
     if(text.split()[0] == '!profile'):
         if(len(text.split()) == 1):
             user_profile = line_bot_api.get_profile(event.source.user_id)
@@ -53,7 +54,9 @@ def handle_text_message(event):
                         text = 'me neither inside a group nor room chat :('
                     )
                 )
-                return
+                found = False
+
+
             member_name = text.split('!profile ')
             for mem_id in list_member.member_ids:
                 if(member_name.lower() in line_bot_api.get_profile(mem_id).display_name):
@@ -67,13 +70,13 @@ def handle_text_message(event):
                         text = 'sorry, no member has name ' + member_name
                     )
                 )
-                return
 
-        text_message = TextSendMessage(text =
-            'Nama : ' + user_profile.display_name +
-            '\nStatus : ' + user_profile.status_message +
-            '\nPicture : ' + user_profile.picture_url)
-        line_bot_api.reply_message(event.reply_token, text_message)
+        if found:
+            text_message = TextSendMessage(text =
+                'Nama : ' + user_profile.display_name +
+                '\nStatus : ' + user_profile.status_message +
+                '\nPicture : ' + user_profile.picture_url)
+            line_bot_api.reply_message(event.reply_token, text_message)
 
 
 import os
