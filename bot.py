@@ -58,7 +58,7 @@ def handle_text_message(event):
             '\nPicture : ' + user_profile.picture_url)
         line_bot_api.reply_message(event.reply_token, text_message)
 
-    elif(text.split()[0] == '!gabut' and len(text.split() >=2)):
+    elif(text.split()[0] == '!gabut' and len(text.split()) >=2):
         text_message = TextSendMessage(
             text = 'Gabut maneh ' + text.split('!gabut ')[1]
         )
