@@ -106,8 +106,8 @@ def handle_text_message(event):
             yr = schd["time"]["year"]
             hr = schd["time"]["hour"]
             mnt = schd["time"]["minute"]
-            msg = msg + no + '.\n' + schd['desc'] +'\n' + 'deadline : ' +
-                '%d/%d/%d %d:%d' %(day, mon, yr, hr, mnt) + '\n\n'
+            msg = msg + no + '.\n' + schd['desc'] +'\n' + 'deadline : ' + '%d/%d/%d %d:%d' %(day, mon, yr, hr, mnt) + '\n\n'
+            no = no+1
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text = msg))
     elif(text == '!help'):
         line_bot_api.reply_message(event.reply_token, [
