@@ -63,12 +63,25 @@ def handle_text_message(event):
             text = 'Gabut maneh ' + text.split('!gabut ')[1]
         )
         line_bot_api.reply_message(event.reply_token, text_message)
+    elif(text == '!help'):
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(
+            text = '!profile : get your profile\n!gabut <insert_name_here> : blame other for their gabutness\n'
+        ))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(
+            text = 'Any idea for future development ? contact me on 08561229561'
+        ))
     else:
-        text = text.split()
+        text = text.lower().split()
         for word in text:
             if word in kata_kasar:
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text = 'ih ga boleh ngomong kasar :('))
                 break
+
+@handler.add(JointEvent)
+def handle_join(event):
+    line_bot_api.reply_message(event.reply_token, TextSendMessage(
+        text = 'Do something useful dude!\nSend !help for more information\n=======\nThis bot is Created by : Priagung S'
+    ))
 
 import os
 if __name__ == "__main__":
