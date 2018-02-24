@@ -70,7 +70,7 @@ def handle_text_message(event):
         line_bot_api.reply_message(event.reply_token, text_message)
 
     elif(text.split()[0] == '!schedule'):
-        if(len(text.split() >= 4)):
+        if(len(text.split()) >= 4):
             deadline = text.split('!schedule')[1].split('"')[0]
             desc = text.split('!schedule')[1].split('"')[1]
             time_struct = time.strptime(deadline, " %d/%m/%Y %H:%M ")
