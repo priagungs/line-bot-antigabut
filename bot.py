@@ -77,7 +77,7 @@ def handle_text_message(event):
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text = 'ih ga boleh ngomong kasar :('))
                 break
 
-@handler.add(JointEvent)
+@handler.add(JoinEvent)
 def handle_join(event):
     line_bot_api.reply_message(event.reply_token, TextSendMessage(
         text = 'Do something useful dude!\nSend !help for more information\n=======\nThis bot is Created by : Priagung S'
