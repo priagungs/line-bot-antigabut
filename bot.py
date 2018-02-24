@@ -1,6 +1,5 @@
 # encoding: utf-8
 from flask import Flask, request, abort
-
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -28,8 +27,7 @@ kata_kasar = [
 ]
 
 # load data from json
-with open('data.json', 'w') as fp:
-    data = json.load(fp)
+data = json.load(open('data.json'))
 
 app = Flask(__name__)
 
@@ -88,7 +86,7 @@ def handle_text_message(event):
             }
             data["schedule"].append(deadline_dict)
             with open('data.json', 'w') as fp:
-                json.dump(data, fp, sort_keys=True, indent=4)
+                json.dump(data, fp)
 
             line_bot_api.reply_message(
                 event.reply_token,
