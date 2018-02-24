@@ -89,7 +89,7 @@ def handle_text_message(event):
             with open('data.json', 'w') as fp:
                 json.dump(data, fp)
             # load data from json
-            data = json.load(open('data.json'))
+            # data = json.load(open('data.json'))
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(
