@@ -20,10 +20,16 @@ from linebot.models import (
 )
 
 import time
+import json
 
 kata_kasar = [
-    'ajg', 'bgst', 'kampret', 'anjing', 'bangsat', 'qntl', 'kontol', 'ngentot', 'ngentiaw', 'bct', 'bacot', 'anjir', 'jir', 'anjay'
+    'ajg', 'bgst', 'kampret', 'anjing', 'bangsat', 'qntl', 'kontol', 'ngentot', 'ngentiaw', 'bct', 'bacot', 'anjir', 'jir', 'anjay', 'kmprt', 'tai', 'goblok', 'goblog', 'gblg', 'gblk',
+    'babi', 'jancuk', 'cuk', 'tolol', 'bego', 'bodo'
 ]
+
+# load data from json
+with open('data.json', 'w') as fp:
+    data = json.load(fp)
 
 app = Flask(__name__)
 
@@ -63,6 +69,9 @@ def handle_text_message(event):
             text = 'Gabut maneh ' + text.split('!gabut ')[1]
         )
         line_bot_api.reply_message(event.reply_token, text_message)
+    elif(text.split()[0] == '!schedule'):
+        if(len(text.split() >= 4)):
+
     elif(text == '!help'):
         line_bot_api.reply_message(event.reply_token, [
                 TextSendMessage(
@@ -73,6 +82,8 @@ def handle_text_message(event):
                 )
             ]
         )
+    elif(text.split()[0])
+
     else:
         text = text.lower().split()
         for word in text:
