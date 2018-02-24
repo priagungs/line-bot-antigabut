@@ -64,12 +64,15 @@ def handle_text_message(event):
         )
         line_bot_api.reply_message(event.reply_token, text_message)
     elif(text == '!help'):
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(
-            text = 'keywords : \n\n!profile : get your profile\n\n!gabut <insert_name_here> : blame other for their gabutness'
-        ))
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(
-            text = 'Any idea for future development ? contact me on 08561229561'
-        ))
+        line_bot_api.reply_message(event.reply_token, [
+                TextSendMessage(
+                    text = 'keywords : \n\n!profile : get your profile\n\n!gabut <insert_name_here> : blame other for their gabutness'
+                ),
+                TextSendMessage(
+                    text = 'Any idea for future development ? contact me on 08561229561'
+                )
+            ]
+        )
     else:
         text = text.lower().split()
         for word in text:
