@@ -56,6 +56,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     text = event.message.text #message from user
+
     if(text == '!profile'):
         user_profile = line_bot_api.get_profile(event.source.user_id)
         text_message = TextSendMessage(text =
@@ -69,9 +70,45 @@ def handle_text_message(event):
             text = 'Gabut maneh ' + text.split('!gabut ')[1]
         )
         line_bot_api.reply_message(event.reply_token, text_message)
+
     elif(text.split()[0] == '!schedule'):
         if(len(text.split() >= 4)):
+            deadline = text.split('!schedule')[1].split('"')[0]
+            desc = text.split('!schedule')[1].split('"')[1]
+            time_struct = time.strptime(deadline, " %d/%m/%Y %H:%M ")
+            deadline_dict = {
+                "time" : {
+                    "day" : time_struct.tm_mday,
+                    "month" : time_struct.tm_mon,
+                    "year" : time_struct.tm_year,
+                    "hour" : time_struct.tm_hour,
+                    "minute" : time_struct.tm_min,
+                },
+                "desc" : desc
+            }
+            data["schedule"].append(deadline_dict)
+            with open('data.json', 'w') as fp:
+                json.dump(data, fp, sort_keys=True, indent=4)
 
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(
+                    text = 'Schedule has been successfully added'
+                )
+            )
+
+    elif(text == '!listschedule'):
+        no = 1
+        msg = ''
+        for schd in data["schedule"]:
+            day = schd["time"]["day"]
+            mon = schd["time"]["month"]
+            yr = schd["time"]["year"]
+            hr = schd["time"]["hour"]
+            mnt = schd["time"]["minute"]
+            msg = msg + no + '.\n' + schd['desc'] +'\n' + 'deadline : ' +
+                '%d/%d/%d %d:%d' %(day, mon, yr, hr, mnt) + '\n\n'
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text = msg))
     elif(text == '!help'):
         line_bot_api.reply_message(event.reply_token, [
                 TextSendMessage(
@@ -82,7 +119,6 @@ def handle_text_message(event):
                 )
             ]
         )
-    elif(text.split()[0])
 
     else:
         text = text.lower().split()
